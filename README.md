@@ -1,1 +1,3 @@
-the git lords been fired
+Hi 
+My name is 
+slim 
