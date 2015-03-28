@@ -1,0 +1,18 @@
+~Expression table~
+create table expression
+(probe varchar (20) not null, foreign key (probe) references probe (IDREF),
+expressionvalue float not null,
+samples varchar (25) not null, foreign key (samples) references samples(sampleid));
+
+~Samples table~
+create table samples (sampleid varchar (25) not null,
+subject integer not null, banana varchar (5) not null);
+
+~To change the name of a column~
+alter table samples change user user varchar(5) not null;
+
+~To change a tables name~
+rename table Probe to probe;
+
+~Think this is the query that worked on the joined tables~
+select GeneID, ExpressionValue, SampleID from Probe inner join Expression on Expression.probe=Probe.IDREF;
