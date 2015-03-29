@@ -1,18 +1,28 @@
 ~Expression table~
-create table expression
-(probe varchar (20) not null, foreign key (probe) references probe (IDREF),
-expressionvalue float not null,
-samples varchar (25) not null, foreign key (samples) references samples(sampleid));
+CREATE TABLE expression4
+(sampleID CHAR(10) NOT NULL, FOREIGN KEY (sampleID) REFERENCES samples (sample_id),
+ID_REF CHAR (12) NOT NULL,
+expression FLOAT NOT NULL);
 
 ~Samples table~
-create table samples (sampleid varchar (25) not null,
-subject integer not null, banana varchar (5) not null);
+CREATE TABLE samples (
+sample_id CHAR (10) NOT NULL PRIMARY KEY,
+subject INT NOT NULL,
+banana VARCHAR (5) NOT NULL);
 
 ~To change the name of a column~
-alter table samples change user user varchar(5) not null;
+ALTER TABLE gene CHANGE GeneName gene_name VARCHAR (20) NOT NULL;
+
+~To change the type of a colummn. 
+Cant use auto increment with anything other than integers~
+ALTER TABLE expression4 MODIFY ID_REF CHAR(12) NOT NULL, FOREIGN KEY (ID_REF) REFERENCES probe (idref);
+
+~Trying to change name and type in one go~
+ALTER TABLE probe CHANGE IDREF idref VARCHAR (20) NOT NULL and
+ALTER TABLE probe MODIFY idref CHAR(12) NOT NULL PRIMARY KEY;
 
 ~To change a tables name~
-rename table Probe to probe;
+RENAME TABLE Probe to probe;
 
 ~Think this is the query that worked on the joined tables~
-select GeneID, ExpressionValue, SampleID from Probe inner join Expression on Expression.probe=Probe.IDREF;
+SELECT GeneID, ExpressionValue, SampleID FROM Probe INNER JOIN Expression ON Expression.probe=Probe.IDREF;
