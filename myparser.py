@@ -4,7 +4,7 @@ infile = 'GDS5047_full.soft'
 fh = open(infile)
 
 line= fh.readline()
-while line[:20] != 'dataset_table_begin':
+while line[:19] != 'dataset_table_begin':
     line=fh.readline()
 
 header= fh.readline().strip()
@@ -29,8 +29,7 @@ def buildrow(row, fields):
         '''Creates a tab separated list of values according to the values listed in fields
         row: a list of values 
         fields: a list of columns. Only the values in row corresponding to the columns in fields are output.
-        returns: a tab separated string of values that is terminated by a newline
-        '''
+        returns: a tab separated string of values that is terminated by a newline'''
     newrow=[]
     for f in fields:
         newrow.append(row[int(colnames[f])])
