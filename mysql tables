@@ -1,14 +1,48 @@
+~Genes table~
+CREATE TABLE gene (
+gene_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+gene_name VARCHAR (20) NOT NULL,
+gene_description VARCHAR (100) NOT NULL);
+
+~PROBES TABLE~
+CREATE TABLE probes (
+geneID INT NOT NULL,
+FOREIGN KEY (geneID) REFERENCES gene (gene_id),
+idref VARCHAR (12) NOT NULL PRIMARY KEY);
+
 ~Expression table~
-CREATE TABLE expression4
-(sampleID CHAR(10) NOT NULL, FOREIGN KEY (sampleID) REFERENCES samples (sample_id),
+CREATE TABLE expression
+(sampleID CHAR(10) NOT NULL PRIMARY KEY,
 ID_REF CHAR (12) NOT NULL,
+expression FLOAT NOT NULL);
+
+~expression2~
+CREATE TABLE expression (
+sampleID VARCHAR(10) NOT NULL,
+FOREIGN KEY (sampleID) REFERENCES samples (sample_id),
+ID_REF VARCHAR(12) NOT NULL,
+FOREIGN KEY (ID_REF) REFERENCES probes (idref),
+expression FLOAT NOT NULL);
+
+~expression4~
+CREATE TABLE expression2(
+sampleID CHAR(10) NOT NULL,
+FOREIGN KEY (sampleID) REFERENCES samples (sample_id)
+ID_REF VARCHAR (12) NOT NULL,
 expression FLOAT NOT NULL);
 
 ~Samples table~
 CREATE TABLE samples (
-sample_id CHAR (10) NOT NULL PRIMARY KEY,
-subject INT NOT NULL,
-banana VARCHAR (5) NOT NULL);
+sample_id VARCHAR (10) NOT NULL PRIMARY KEY,
+user VARCHAR (5) NOT NULL,
+subject INT NOT NULL);
+
+~samples2~
+CREATE TABLE samples2 (
+sample_id CHAR (10) NOT NULL,
+FOREIGN KEY (sample_id) REFERENCES expression (sampleID),
+user CHAR (3) NOT NULL,
+subject INT NOT NULL);
 
 ~To change the name of a column~
 ALTER TABLE gene CHANGE GeneName gene_name VARCHAR (20) NOT NULL;
@@ -24,5 +58,17 @@ ALTER TABLE probe MODIFY idref CHAR(12) NOT NULL PRIMARY KEY;
 ~To change a tables name~
 RENAME TABLE Probe to probe;
 
+~Adding a foreign key~
+ALTER TABLE expression ADD FOREIGN KEY (ID_REF) REFERENCES probe (idref);
+
 ~Think this is the query that worked on the joined tables~
 SELECT GeneID, ExpressionValue, SampleID FROM Probe INNER JOIN Expression ON Expression.probe=Probe.IDREF;
+
+~Loading data into the samples table~
+LOAD DATA LOCAL INFILE 'samples.txt' INTO TABLE samples;
+
+~Delete a column~
+ALTER TABLE samples DROP COLUMN subject
+
+~Add a column~
+ALTER TABLE samples ADD COLUMN subject INT NOT NULL AFTER user;
