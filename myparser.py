@@ -47,6 +47,8 @@ for line in fh.readlines():
         if line[0]=='!':
             continue
         row=line.strip().split('\t')
+        if row[int(colnames['Gene ID'])]=='':
+            continue
         genefile.write(buildrow(row, genefields))
         probefile.write(buildrow(row,probefields))
         expressionfile.write(build_expression(row, samples))
