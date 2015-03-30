@@ -4,9 +4,9 @@ infile = 'GDS5047_full.soft'
 fh = open(infile)
 
 line= fh.readline()
-while line[:19] != 'dataset_table_begin':
+while line[:20] != '!dataset_table_begin':
     line=fh.readline()
-
+print ('reading header')
 header= fh.readline().strip()
 
 colnames={}
@@ -26,21 +26,13 @@ samples=header.split('\t')[2:int(colnames['Gene title'])]
 probefields=['ID_REF', 'Gene ID']
 
 def buildrow(row, fields):
-        '''Creates a tab separated list of values according to the values listed in fields
-        row: a list of values 
-        fields: a list of columns. Only the values in row corresponding to the columns in fields are output.
-        returns: a tab separated string of values that is terminated by a newline'''
+    ''' docstring here '''
     newrow=[]
     for f in fields:
         newrow.append(row[int(colnames[f])])
     return "\t".join(newrow)+"\n"
 
 def build_expression(row, samples):
-        '''Builds tab separated rows for expression data. For each of the samples listed
-        it generates a line with the probe id, sample id and expression value.
-        row: a list of values
-        samples: a list of column headings corresponding to the samples
-        '''
     exprrows=[]
     for s in samples:
         newrow=[s,]
@@ -50,7 +42,7 @@ def build_expression(row, samples):
     return "\n".join(exprrows)+"\n"
 
 rows=0
-forline in fh.readlines():
+for line in fh.readlines():
     try:
         if line[0]=='!':
             continue
