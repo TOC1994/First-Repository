@@ -6,9 +6,9 @@ gene_description VARCHAR (100) NOT NULL);
 
 ~PROBES TABLE~
 CREATE TABLE probes (
+idref VARCHAR (12) NOT NULL PRIMARY KEY,
 geneID INT NOT NULL,
-FOREIGN KEY (geneID) REFERENCES gene (gene_id),
-idref VARCHAR (12) NOT NULL PRIMARY KEY);
+FOREIGN KEY (geneID) REFERENCES genes (gene_id));
 
 ~Expression table~
 CREATE TABLE expression
@@ -49,14 +49,14 @@ ALTER TABLE gene CHANGE GeneName gene_name VARCHAR (20) NOT NULL;
 
 ~To change the type of a colummn. 
 Cant use auto increment with anything other than integers~
-ALTER TABLE expression4 MODIFY ID_REF CHAR(12) NOT NULL, FOREIGN KEY (ID_REF) REFERENCES probe (idref);
+ALTER TABLE genes MODIFY gene_description VARCHAR(150) NOT NULL;
 
 ~Trying to change name and type in one go~
 ALTER TABLE probe CHANGE IDREF idref VARCHAR (20) NOT NULL and
 ALTER TABLE probe MODIFY idref CHAR(12) NOT NULL PRIMARY KEY;
 
 ~To change a tables name~
-RENAME TABLE Probe to probe;
+RENAME TABLE gene to genes;
 
 ~Adding a foreign key~
 ALTER TABLE expression ADD FOREIGN KEY (ID_REF) REFERENCES probe (idref);
@@ -67,8 +67,20 @@ SELECT GeneID, ExpressionValue, SampleID FROM Probe INNER JOIN Expression ON Exp
 ~Loading data into the samples table~
 LOAD DATA LOCAL INFILE 'samples.txt' INTO TABLE samples;
 
+--Loading data into the expression table
+LOAD DATA LOCAL INFILE 'expression.txt' INTO TABLE expression;
+
+--Loading data into the probes table
+LOAD DATA LOCAL INFILE 'probes.txt' INTO TABLE probes;
+
+--Loading data into the genes table
+LOAD DATA LOCAL INFILE 'genes.txt' INTO TABLE genes;
+
 ~Delete a column~
-ALTER TABLE samples DROP COLUMN subject
+ALTER TABLE probes DROP COLUMN geneID;
 
 ~Add a column~
 ALTER TABLE samples ADD COLUMN subject INT NOT NULL AFTER user;
+
+--Delete a table
+DROP TABLE probes;
