@@ -44,4 +44,52 @@ print soccermom[:5]
 print soccermom [:-3]
 print soccermom [-3:]
 
-print len(soccermom)
+print min(soccermom)
+
+stringylist = list ("Jack")
+print ''.join(stringylist)
+stringylist[4:]='ie'
+
+l1 = [1,2,3,4,5]
+print l1
+del l1[2]
+
+l1 = ['jack', 21, 'dunfermline', 'brown']
+l1.append ('biochem')
+l1.remove (l1[3])
+l1.insert (3, 'blue')
+
+--Dictionaries--
+dictex = ({"Age":21, "Height":"6'3", "Weight":72})
+print dictex 
+print dictex.get("Height")
+dictex.pop("Weight")
+
+--Manipulating print-- 
+strname = 'Jack'
+fAge = 21
+cSex = 'M'
+iKids = 0
+bMarried = False
+
+print 'My name is', strname
+print '%s is %.0f years old' % (strname,fAge)
+print 'His sex is %c' % (cSex)
+print 'He has %i children and he said it\'s %s that he is married' % (iKids, bMarried)
+
+import math
+precisionPi = int(raw_input("How precise would you like Pi to be?: "))
+print 'Pi = %.*f' % (precisionPi, math.pi)
+
+your_age = int(raw_input("How old are you?: "))
+
+if (your_age > 10) and (your_age < 100):
+    if (your_age == 21):
+        print "Same here!"
+    elif (your_age < 21):
+        print "Awh you're just a baby..."
+    else:
+        print "Whoa, you're a bit older than me!"
+else:
+    print "Come on, don't lie about your age!"
+
