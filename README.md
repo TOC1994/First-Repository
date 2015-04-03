@@ -1,5 +1,2 @@
-Hi 
-My name is 
-slim 
+This repository will serve as a virtual lab book for the BS32012 Bioinformatics Practical Project. 
 
-the git lords been fired into space
