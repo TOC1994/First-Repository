@@ -11,12 +11,6 @@ geneID INT NOT NULL,
 FOREIGN KEY (geneID) REFERENCES genes (gene_id));
 
 ~Expression table~
-CREATE TABLE expression
-(sampleID CHAR(10) NOT NULL PRIMARY KEY,
-ID_REF CHAR (12) NOT NULL,
-expression FLOAT NOT NULL);
-
-~expression2~
 CREATE TABLE expression (
 sampleID VARCHAR(10) NOT NULL,
 FOREIGN KEY (sampleID) REFERENCES samples (sample_id),
@@ -24,24 +18,10 @@ ID_REF VARCHAR(12) NOT NULL,
 FOREIGN KEY (ID_REF) REFERENCES probes (idref),
 expression FLOAT NOT NULL);
 
-~expression4~
-CREATE TABLE expression2(
-sampleID CHAR(10) NOT NULL,
-FOREIGN KEY (sampleID) REFERENCES samples (sample_id)
-ID_REF VARCHAR (12) NOT NULL,
-expression FLOAT NOT NULL);
-
 ~Samples table~
 CREATE TABLE samples (
 sample_id VARCHAR (10) NOT NULL PRIMARY KEY,
 user VARCHAR (5) NOT NULL,
-subject INT NOT NULL);
-
-~samples2~
-CREATE TABLE samples2 (
-sample_id CHAR (10) NOT NULL,
-FOREIGN KEY (sample_id) REFERENCES expression (sampleID),
-user CHAR (3) NOT NULL,
 subject INT NOT NULL);
 
 ~To change the name of a column~
